@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">गरुड़ एक्सप्रेस - Garud Express | तेज, सुरक्षित और भरोसेमंद डिलीवरी सेवा</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF6B00;
+    --deep-saffron: #E55A00;
+    --gold: #FFB300;
+    --dark: #0A0A0A;
+    --dark2: #111111;
+    --dark3: #1A1A1A;
+    --card-bg: #161616;
+    --text: #F5F5F0;
+    --text-muted: #A0A0A0;
+    --border: rgba(255,107,0,0.15);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Baloo 2', 'Noto Sans Devanagari', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ===== CUSTOM SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--saffron); border-radius: 3px; }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  nav.scrolled {
+    padding: 10px 40px;
+    background: rgba(10,10,10,0.98);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 144px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+  }
+
+  @keyframes eaglePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,0,0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(255,107,0,0); }
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 32px; list-style: none;
+  }
+
+  .nav-logo-text {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+
+  .nav-logo span {
+    font-size: 18px; font-weight: 800; color: var(--saffron);
+  }
+
+  .language-switcher {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text-muted);
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .language-switcher label {
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .language-switcher select {
+    background: var(--dark3);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .language-switcher select:focus {
+    border-color: var(--saffron);
+    box-shadow: 0 0 0 4px rgba(255,107,0,0.08);
+  }
+
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-weight: 500;
+    font-size: 15px; transition: color 0.2s; position: relative;
+  }
+
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--saffron);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--saffron); color: white !important;
+    padding: 8px 20px; border-radius: 8px;
+    font-weight: 600 !important;
+  }
+
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--deep-saffron) !important; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 100px 40px 60px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(255,107,0,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 80%, rgba(255,179,0,0.05) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: 
+      linear-gradient(rgba(255,107,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,107,0,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
+
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: var(--saffron);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat linear infinite;
+  }
+
+  @keyframes particleFloat {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-100px) translateX(80px); opacity: 0; }
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 620px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,107,0,0.12);
+    border: 1px solid rgba(255,107,0,0.3);
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 13px; color: var(--gold); font-weight: 600;
+    margin-bottom: 24px;
+    animation: fadeInDown 0.6s ease both;
+  }
+
+  .badge-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--saffron);
+    animation: badgeBlink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes badgeBlink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero-title {
+    font-size: clamp(44px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    animation: fadeInUp 0.7s ease 0.1s both;
+  }
+
+  .hero-title .hindi {
+    display: block;
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-title .english {
+    display: block; font-size: 0.55em;
+    color: var(--text-muted); font-weight: 600;
+    -webkit-text-fill-color: unset;
+    letter-spacing: 6px; text-transform: uppercase;
+  }
+
+  .hero-tagline {
+    font-size: 18px; color: var(--text-muted);
+    line-height: 1.7; margin-bottom: 32px;
+    animation: fadeInUp 0.7s ease 0.2s both;
+  }
+
+  .hero-tagline strong { color: var(--saffron); }
+
+  .hero-buttons {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeInUp 0.7s ease 0.3s both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    color: white; border: none; padding: 14px 32px;
+    border-radius: 12px; font-size: 16px; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(255,107,0,0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text); border: 1.5px solid var(--border);
+    padding: 14px 32px; border-radius: 12px;
+    font-size: 16px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--saffron); color: var(--saffron);
+    transform: translateY(-3px);
+  }
+
+  /* Hero visual side */
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    z-index: 1;
+    animation: heroVisualIn 1s ease 0.4s both;
+  }
+
+  @keyframes heroVisualIn {
+    from { opacity: 0; transform: translateY(-50%) translateX(60px); }
+    to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+
+  .delivery-van-wrap {
+    position: relative; width: 480px; height: 340px;
+  }
+
+  .van-road {
+    position: absolute; bottom: 20px; left: 0; right: 0;
+    height: 3px; background: linear-gradient(90deg, transparent, rgba(255,107,0,0.4), transparent);
+    overflow: hidden;
+  }
+
+  .van-road::after {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+    animation: roadLine 2s linear infinite;
+  }
+
+  @keyframes roadLine {
+    to { left: 100%; }
+  }
+
+  .van-svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 20px 60px rgba(255,107,0,0.2));
+    animation: vanFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes vanFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(0.5deg); }
+    75% { transform: translateY(-4px) rotate(-0.3deg); }
+  }
+
+  /* Speed lines */
+  .speed-lines {
+    position: absolute; left: -40px; top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .speed-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--saffron));
+    margin: 6px 0;
+    animation: speedLine 0.8s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes speedLine {
+    0% { width: 0; opacity: 0; transform: translateX(0); }
+    50% { width: 60px; opacity: 0.6; }
+    100% { width: 0; opacity: 0; transform: translateX(-20px); }
+  }
+
+  /* ===== STATS STRIP ===== */
+  .stats-strip {
+    background: var(--dark3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 40px;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px; max-width: 1100px; margin: 0 auto;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 20px;
+    border-right: 1px solid var(--border);
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.5s;
+  }
+
+  .stat-item:last-child { border-right: none; }
+  .stat-item.visible { opacity: 1; transform: translateY(0); }
+
+  .stat-num {
+    font-size: 40px; font-weight: 800;
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block; line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 14px; color: var(--text-muted);
+    margin-top: 6px; font-weight: 500;
+  }
+
+  /* ===== SERVICES ===== */
+  .section {
+    padding: 80px 40px; max-width: 1200px; margin: 0 auto;
+  }
+
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--saffron); font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .section-tag::before {
+    content: ''; width: 20px; height: 2px;
+    background: var(--saffron); display: block;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800; line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .section-title span {
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-desc {
+    font-size: 17px; color: var(--text-muted);
+    max-width: 560px; line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    position: relative; overflow: hidden;
+    transition: all 0.4s;
+    opacity: 0; transform: translateY(30px);
+    cursor: default;
+  }
+
+  .service-card.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  .service-card::before {
+    content: ''; position: absolute;
+    inset: 0; border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,107,0,0.06), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+
+  .service-card:hover {
+    border-color: rgba(255,107,0,0.4);
+    transform: translateY(-6px) !important;
+    box-shadow: 0 24px 60px rgba(255,107,0,0.1);
+  }
+
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 60px; height: 60px;
+    background: rgba(255,107,0,0.1);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin-bottom: 20px;
+    transition: all 0.3s;
+  }
+
+  .service-card:hover .service-icon {
+    background: rgba(255,107,0,0.2);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .service-title {
+    font-size: 20px; font-weight: 700;
+    margin-bottom: 8px; color: var(--text);
+  }
+
+  .service-title-hi {
+    font-size: 15px; color: var(--saffron);
+    font-weight: 600; margin-bottom: 12px;
+  }
+
+  .service-desc {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .service-arrow {
+    position: absolute; bottom: 24px; right: 24px;
+    width: 36px; height: 36px;
+    background: rgba(255,107,0,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--saffron); font-size: 18px;
+    transition: all 0.3s;
+  }
+
+  .service-card:hover .service-arrow {
+    background: var(--saffron); color: white;
+    transform: rotate(-45deg);
+  }
+
+  /* ===== COVERAGE ===== */
+  .coverage-section {
+    background: var(--dark3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 40px;
+  }
+
+  .coverage-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+
+  .coverage-visual {
+    position: relative;
+  }
+
+  .india-map-placeholder {
+    width: 100%; aspect-ratio: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  .map-pulse {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--saffron);
+    animation: mapPulse 2.5s ease-out infinite;
+  }
+
+  .map-pulse:nth-child(1) { width: 60px; height: 60px; animation-delay: 0s; }
+  .map-pulse:nth-child(2) { width: 100px; height: 100px; animation-delay: 0.4s; }
+  .map-pulse:nth-child(3) { width: 150px; height: 150px; animation-delay: 0.8s; }
+
+  @keyframes mapPulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+  .map-center {
+    position: absolute; font-size: 40px; z-index: 1;
+    animation: eaglePulse 3s ease-in-out infinite;
+  }
+
+  .map-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,107,0,0.3) 2px, transparent 2px);
+    background-size: 28px 28px;
+    opacity: 0.4;
+  }
+
+  .coverage-points {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 40px;
+  }
+
+  .coverage-point {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px;
+    font-size: 14px; font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .coverage-point:hover {
+    border-color: var(--saffron);
+    background: rgba(255,107,0,0.05);
+  }
+
+  .point-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%; background: var(--saffron);
+    flex-shrink: 0;
+    animation: badgeBlink 2s ease-in-out infinite;
+  }
+
+  /* ===== TIMINGS ===== */
+  .timings-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    margin-top: 32px;
+  }
+
+  .timing-row {
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .timing-row:last-child { border-bottom: none; }
+
+  .timing-day {
+    font-weight: 600; font-size: 16px;
+  }
+
+  .timing-time {
+    color: var(--saffron); font-weight: 700; font-size: 15px;
+  }
+
+  .timing-closed {
+    background: rgba(255,107,0,0.1);
+    color: var(--saffron); padding: 4px 12px;
+    border-radius: 6px; font-size: 13px; font-weight: 700;
+  }
+
+  /* ===== WHY US ===== */
+  .whyus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .why-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px;
+    text-align: center;
+    transition: all 0.4s;
+    opacity: 0; transform: scale(0.9);
+  }
+
+  .why-card.visible { opacity: 1; transform: scale(1); }
+
+  .why-card:hover {
+    border-color: rgba(255,107,0,0.4);
+    transform: scale(1.04) !important;
+    box-shadow: 0 16px 40px rgba(255,107,0,0.08);
+  }
+
+  .why-icon {
+    font-size: 40px; margin-bottom: 16px;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .why-card:hover .why-icon { transform: scale(1.2) rotate(10deg); }
+
+  .why-title {
+    font-size: 18px; font-weight: 700; margin-bottom: 8px;
+  }
+
+  .why-hi {
+    font-size: 14px; color: var(--saffron);
+    font-weight: 600; margin-bottom: 10px;
+  }
+
+  .why-desc {
+    font-size: 13px; color: var(--text-muted); line-height: 1.5;
+  }
+
+  /* ===== ABOUT / REGISTRATION ===== */
+  .about-section {
+    background: var(--dark3);
+    border-top: 1px solid var(--border);
+  }
+
+  .about-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 80px 40px;
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 60px; align-items: center;
+  }
+
+  .reg-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,107,0,0.1);
+    border: 1px solid rgba(255,107,0,0.3);
+    padding: 12px 20px; border-radius: 12px;
+    margin-top: 32px; margin-bottom: 16px;
+  }
+
+  .reg-label { font-size: 12px; color: var(--text-muted); }
+  .reg-num { font-size: 18px; font-weight: 800; color: var(--saffron); }
+
+  .dtdc-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    padding: 10px 20px; border-radius: 10px;
+    margin-bottom: 24px;
+    font-weight: 700; font-size: 15px; color: var(--text-muted);
+  }
+
+  .contact-info-grid {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .contact-card-item {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 22px;
+    transition: all 0.3s;
+  }
+
+  .contact-card-item:hover {
+    border-color: rgba(255,107,0,0.4);
+    transform: translateX(6px);
+  }
+
+  .contact-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255,107,0,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+
+  .contact-name {
+    font-size: 16px; font-weight: 700;
+  }
+
+  .contact-phone {
+    font-size: 20px; font-weight: 800;
+    color: var(--saffron); letter-spacing: 1px;
+  }
+
+  .contact-phone a {
+    color: inherit; text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-phone a:hover { color: var(--gold); }
+
+  /* ===== CONTACT FORM ===== */
+  .form-section {
+    padding: 80px 40px;
+    max-width: 900px; margin: 0 auto;
+  }
+
+  .form-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px; padding: 48px;
+    position: relative; overflow: hidden;
+  }
+  
+
+  .form-wrap::before {
+    content: ''; position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,107,0,0.06) 0%, transparent 70%);
+  }
+
+  .form-title {
+    font-size: 32px; font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .form-subtitle {
+    color: var(--text-muted); margin-bottom: 36px; font-size: 16px;
+  }
+
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-label {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 1px;
+   
+  }
+  .form-input option{
+    color:black;
+  }
+               
+
+
+  .form-input, .form-textarea {
+    background: var(--dark3);
+    border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 14px 18px;
+    color: var(--text); font-family: inherit;
+    font-size: 16px; outline: none;
+    transition: all 0.3s;
+    width: 100%;
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: rgba(160,160,160,0.5);
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--saffron);
+    background: rgba(255,107,0,0.03);
+    box-shadow: 0 0 0 4px rgba(255,107,0,0.08);
+  }
+
+  .form-textarea {
+    resize: vertical; min-height: 140px;
+    line-height: 1.6;
+  }
+
+  .form-submit {
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    color: rgb(104, 77, 77); border: none;
+    padding: 16px 40px; border-radius: 14px;
+    font-size: 17px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+    display: flex; align-items: center; gap: 10px;
+    transition: all 0.3s; margin-top: 8px;
+    position: relative; overflow: hidden;
+  }
+
+  .form-submit::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+  }
+
+  .form-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(255,107,0,0.4);
+  }
+
+  .form-submit:hover::before { transform: translateX(100%); }
+
+  .form-success {
+    display: none; text-align: center; padding: 40px 20px;
+  }
+
+  .success-icon {
+    font-size: 60px; display: block;
+    margin-bottom: 16px;
+    animation: successBounce 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  @keyframes successBounce {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(0.9); }
+    75% { transform: scale(1.1); }
+  }
+
+  /* ===== ADDRESS ===== */
+  .address-banner {
+    background: rgba(255,107,0,0.06);
+    border-top: 1px solid var(--border);
+    padding: 28px 40px;
+    text-align: center;
+  }
+
+  .address-text {
+    font-size: 16px; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; flex-wrap: wrap;
+  }
+
+  .address-text span {
+    color: var(--saffron); font-size: 20px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark2);
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-size: 24px; font-weight: 800;
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .footer-text {
+    font-size: 14px; color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .footer-links {
+    display: flex; gap: 24px; justify-content: center;
+    flex-wrap: wrap; list-style: none;
+  }
+
+  .footer-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--saffron); }
+
+  .footer-bottom {
+    margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: rgba(160,160,160,0.5);
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== MOBILE HAMBURGER ===== */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 8px; background: none; border: none;
+  }
+
+  .hamburger span {
+    width: 26px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: all 0.3s;
+    display: block;
+  }
+
+  /* ===== SCROLL TO TOP ===== */
+  .scroll-top {
+    position: fixed; bottom: 32px; right: 32px; z-index: 999;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--saffron); color: white;
+    border: none; cursor: pointer; font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.3s; box-shadow: 0 8px 24px rgba(255,107,0,0.4);
+  }
+
+  .scroll-top.show { opacity: 1; transform: translateY(0); }
+  .scroll-top:hover { transform: translateY(-4px) scale(1.1) !important; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .hamburger { display: flex; }
+    .nav-links {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--dark2);
+      flex-direction: column; justify-content: center;
+      gap: 32px; font-size: 20px;
+      transform: translateX(100%);
+      transition: transform 0.3s;
+      z-index: 999;
+    }
+    .nav-links.open { transform: translateX(0); }
+    .hero { padding: 100px 20px 60px; flex-direction: column; min-height: auto; }
+    .hero-visual { display: none; }
+    .hero-content { max-width: 100%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .section { padding: 60px 20px; }
+    .coverage-inner { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; padding: 60px 20px; }
+    .form-section { padding: 60px 20px; }
+    .form-wrap { padding: 28px 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .coverage-section { padding: 60px 20px; }
+    .address-banner { padding: 20px; }
+  }
+
+  .language-switcher select {
+    min-width: 110px;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .hamburger { display: flex; }
+    .nav-links {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--dark2);
+      flex-direction: column; justify-content: center;
+      gap: 32px; font-size: 20px;
+      transform: translateX(100%);
+      transition: transform 0.3s;
+      z-index: 999;
+    }
+    .nav-links.open { transform: translateX(0); }
+    .hero { padding: 100px 20px 60px; flex-direction: column; min-height: auto; }
+    .hero-visual { display: none; }
+    .hero-content { max-width: 100%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .section { padding: 60px 20px; }
+    .coverage-inner { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; padding: 60px 20px; }
+    .form-section { padding: 60px 20px; }
+    .form-wrap { padding: 28px 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .coverage-section { padding: 60px 20px; }
+    .address-banner { padding: 20px; }
+    .language-switcher { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <img src="assets/LOGO-IMG-FIRST.png" alt="Garud Express logo">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a id="navServicesLink" href="#services">सेवाएं</a></li>
+    <li><a id="navCoverageLink" href="#coverage">कवरेज</a></li>
+    <li><a id="navAboutLink" href="#about">हमारे बारे में</a></li>
+    <li><a id="navContactLink" href="#contact" class="nav-cta">संपर्क करें</a></li>
+  </ul>
+  <div class="language-switcher">
+    <label for="languageSelect" id="languageLabel">भाषा</label>
+    <select id="languageSelect" aria-label="Language selector">
+      <option value="hi" selected>हिंदी</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      UDYAM-RJ-11-0083616 · Registered
+    </div>
+    <h1 class="hero-title">
+      <span class="hindi">गरुड़ एक्सप्रेस</span>
+      <span class="english">Garud Express</span>
+    </h1>
+    <p id="heroTagline" class="hero-tagline">
+      <strong>तेज, सुरक्षित और भरोसेमंद डिलीवरी सेवा</strong><br>
+      आपका भरोसा, हमारी डिलीवरी — भारत में कहीं भी, समय पर।
+    </p>
+    <div class="hero-buttons">
+      <a id="callNowBtn" href="tel:8949813543" class="btn-primary">
+        📞 अभी कॉल करें
+      </a>
+      <a id="servicesBtn" href="#services" class="btn-secondary">
+        हमारी सेवाएं →
+      </a>
+    </div>
+  </div>
+
+  <!-- Van Visual -->
+  <div class="hero-visual">
+    <div class="delivery-van-wrap">
+      <div class="speed-lines">
+        <div class="speed-line" style="width:50px; animation-delay:0s;"></div>
+        <div class="speed-line" style="width:70px; animation-delay:0.2s;"></div>
+        <div class="speed-line" style="width:40px; animation-delay:0.4s;"></div>
+        <div class="speed-line" style="width:60px; animation-delay:0.1s;"></div>
+        <div class="speed-line" style="width:30px; animation-delay:0.3s;"></div>
+      </div>
+      <svg class="van-svg" viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="vanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF6B00"/>
+            <stop offset="100%" stop-color="#FFB300"/>
+          </linearGradient>
+          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2A2A2A"/>
+            <stop offset="100%" stop-color="#1A1A1A"/>
+          </linearGradient>
+        </defs>
+        <!-- Van Body -->
+        <rect x="60" y="80" width="350" height="160" rx="18" fill="url(#bodyGrad)" stroke="#FF6B00" stroke-width="1.5"/>
+        <!-- Orange stripe -->
+        <rect x="60" y="140" width="350" height="40" fill="url(#vanGrad)" opacity="0.9"/>
+        <!-- Windshield -->
+        <rect x="300" y="90" width="100" height="90" rx="10" fill="#1E3A5F" stroke="#FF6B00" stroke-width="1"/>
+        <!-- Window reflection -->
+        <rect x="310" y="98" width="20" height="70" rx="4" fill="rgba(255,255,255,0.08)"/>
+        <!-- Side window -->
+        <rect x="90" y="95" width="80" height="55" rx="8" fill="#1E3A5F" stroke="#FF6B00" stroke-width="1"/>
+        <!-- Eagle logo on side -->
+        <circle cx="210" cy="140" r="30" fill="rgba(255,107,0,0.15)" stroke="#FF6B00" stroke-width="1.5"/>
+        <text x="210" y="148" text-anchor="middle" font-size="28" fill="#FF6B00">🦅</text>
+        <!-- Company text -->
+        <text x="210" y="180" text-anchor="middle" font-size="11" fill="white" font-weight="bold" font-family="Arial">GARUD EXPRESS</text>
+        <!-- Wheels -->
+        <circle cx="135" cy="240" r="36" fill="#111" stroke="#FF6B00" stroke-width="2"/>
+        <circle cx="135" cy="240" r="22" fill="#1A1A1A" stroke="#888" stroke-width="1.5"/>
+        <circle cx="135" cy="240" r="8" fill="#FF6B00"/>
+        <circle cx="340" cy="240" r="36" fill="#111" stroke="#FF6B00" stroke-width="2"/>
+        <circle cx="340" cy="240" r="22" fill="#1A1A1A" stroke="#888" stroke-width="1.5"/>
+        <circle cx="340" cy="240" r="8" fill="#FF6B00"/>
+        <!-- Headlight -->
+        <rect x="395" y="115" width="20" height="30" rx="5" fill="#FFE566" opacity="0.8"/>
+        <ellipse cx="415" cy="130" rx="8" ry="12" fill="rgba(255,229,102,0.3)"/>
+        <!-- Packages on roof visual hint -->
+        <rect x="80" y="64" width="50" height="20" rx="4" fill="#FF6B00" opacity="0.6"/>
+        <rect x="140" y="58" width="60" height="26" rx="4" fill="#FFB300" opacity="0.5"/>
+        <rect x="210" y="62" width="45" height="22" rx="4" fill="#FF6B00" opacity="0.4"/>
+      </svg>
+      <div class="van-road"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-num" data-target="5000">0</span>
+      <div class="stat-label">📦 डिलीवरी पूरी</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="28">0</span>
+      <div class="stat-label">🗺️ राज्यों में सेवा</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="99" data-suffix="%">0</span>
+      <div class="stat-label">⏱️ समय पर डिलीवरी</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="10">0</span>
+      <div class="stat-label">⭐ वर्षों का अनुभव</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="services">
+  <div class="section">
+    <p class="section-tag" data-i18n="servicesTag">हमारी सेवाएं</p>
+    <h2 class="section-title" data-i18n="servicesTitle">क्या-क्या करते हैं हम?<br><span>Our Services</span></h2>
+    <p class="section-desc" data-i18n="servicesDesc">हर तरह की डिलीवरी जरूरत के लिए — पार्सल से डॉक्युमेंट तक, एक्सप्रेस से ऑल इंडिया तक।</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <div class="service-title" data-i18n="serviceTitle1">Parcel Booking</div>
+        <div class="service-title-hi">पार्सल बुकिंग</div>
+        <p class="service-desc" data-i18n="serviceDesc1">छोटे-बड़े सभी पार्सल की सुरक्षित बुकिंग। घर से पिकअप और दरवाजे तक डिलीवरी।</p>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📄</div>
+        <div class="service-title" data-i18n="serviceTitle2">Document Service</div>
+        <div class="service-title-hi">डॉक्युमेंट सेवा</div>
+        <p class="service-desc" data-i18n="serviceDesc2">जरूरी दस्तावेज, कागजात और कानूनी फाइलें — पूरी गोपनीयता और सुरक्षा के साथ।</p>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <div class="service-title" data-i18n="serviceTitle3">Express Delivery</div>
+        <div class="service-title-hi">एक्सप्रेस डिलीवरी</div>
+        <p class="service-desc" data-i18n="serviceDesc3">जब समय कम हो — एक्सप्रेस सर्विस से तेज़तर डिलीवरी, प्राथमिकता के साथ।</p>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <div class="service-title" data-i18n="serviceTitle4">Safe & Secure</div>
+        <div class="service-title-hi">सुरक्षित सेवा</div>
+        <p class="service-desc" data-i18n="serviceDesc4">हर पार्सल का बीमा और ट्रैकिंग — आपका सामान हमारी जिम्मेदारी।</p>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🗺️</div>
+        <div class="service-title" data-i18n="serviceTitle5">All Over India</div>
+        <div class="service-title-hi">भारत में कहीं भी</div>
+        <p class="service-desc" data-i18n="serviceDesc5">देश के किसी भी कोने में — DTDC नेटवर्क के साथ सर्वव्यापी डिलीवरी सेवा।</p>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🕐</div>
+        <div class="service-title" data-i18n="serviceTitle6">On Time Delivery</div>
+        <div class="service-title-hi">समय पर डिलीवरी</div>
+        <p class="service-desc" data-i18n="serviceDesc6">वादे का पक्का — निर्धारित समय पर डिलीवरी, कोई देरी नहीं।</p>
+        <div class="service-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COVERAGE -->
+<div class="coverage-section" id="coverage">
+  <div class="coverage-inner">
+    <div class="coverage-visual">
+      <div class="india-map-placeholder">
+        <div class="map-dots"></div>
+        <div class="map-pulse"></div>
+        <div class="map-pulse"></div>
+        <div class="map-pulse"></div>
+        <div class="map-center">🦅</div>
+      </div>
+    </div>
+
+    <div>
+      <p class="section-tag">सेवा क्षेत्र</p>
+      <h2 class="section-title"><span>भारत में कहीं भी</span><br>All Over India</h2>
+      <p class="section-desc">तेज, सुरक्षित और भरोसेमंद डिलीवरी सेवा — आपका पार्सल, हमारी जिम्मेदारी।</p>
+
+      <div class="coverage-points">
+        <div class="coverage-point"><div class="point-dot"></div>राजस्थान</div>
+        <div class="coverage-point"><div class="point-dot"></div>दिल्ली / NCR</div>
+        <div class="coverage-point"><div class="point-dot"></div>महाराष्ट्र</div>
+        <div class="coverage-point"><div class="point-dot"></div>गुजरात</div>
+        <div class="coverage-point"><div class="point-dot"></div>उत्तर प्रदेश</div>
+        <div class="coverage-point"><div class="point-dot"></div>मध्य प्रदेश</div>
+        <div class="coverage-point"><div class="point-dot"></div>हरियाणा</div>
+        <div class="coverage-point"><div class="point-dot" style="animation-delay:0.5s"></div>+ सम्पूर्ण भारत</div>
+      </div>
+
+      <div class="timings-box" style="margin-top:32px;">
+        <h3 style="font-size:18px; font-weight:700; margin-bottom:16px; color:var(--saffron);">🕐 सेवा समय</h3>
+        <div class="timing-row">
+          <span class="timing-day">सोमवार – शनिवार</span>
+          <span class="timing-time">सुबह 9:00 – शाम 7:00 बजे</span>
+        </div>
+        <div class="timing-row">
+          <span class="timing-day">रविवार</span>
+          <span class="timing-closed">अवकाश</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<div id="whyus">
+  <div class="section">
+    <p class="section-tag">क्यों चुनें हमें?</p>
+    <h2 class="section-title">आपका भरोसा, <span>हमारी डिलीवरी</span></h2>
+    <p class="section-desc">हम सिर्फ पार्सल नहीं पहुंचाते — हम आपका विश्वास पहुंचाते हैं।</p>
+
+    <div class="whyus-grid">
+      <div class="why-card">
+        <span class="why-icon">⚡</span>
+        <div class="why-title">Express Speed</div>
+        <div class="why-hi">सबसे तेज़ डिलीवरी</div>
+        <p class="why-desc">एक्सप्रेस नेटवर्क से तेज़तर डिलीवरी</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🔒</span>
+        <div class="why-title">100% Secure</div>
+        <div class="why-hi">पूरी सुरक्षा</div>
+        <p class="why-desc">हर पार्सल का बीमा और सुरक्षित हैंडलिंग</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📍</span>
+        <div class="why-title">Live Tracking</div>
+        <div class="why-hi">लाइव ट्रैकिंग</div>
+        <p class="why-desc">DTDC नेटवर्क पर रियल-टाइम ट्रैकिंग</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💰</span>
+        <div class="why-title">Best Price</div>
+        <div class="why-hi">किफायती दाम</div>
+        <p class="why-desc">प्रतिस्पर्धी दरों पर बेहतरीन सेवा</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT & CONTACT -->
+<div class="about-section" id="about">
+  <div class="about-inner">
+    <div>
+      <p class="section-tag">हमारे बारे में</p>
+      <h2 class="section-title">गरुड़ एक्सप्रेस —<br><span>Sardarshahar, Rajasthan</span></h2>
+      <p class="section-desc" style="margin-bottom:0;">
+        हम राजस्थान के सरदारशहर से संचालित एक विश्वसनीय डिलीवरी सेवा कंपनी हैं। 
+        DTDC Express Parcels के अधिकृत भागीदार के रूप में हम पूरे भारत में 
+        तेज़, सुरक्षित और समय पर डिलीवरी सुनिश्चित करते हैं।
+      </p>
+
+      <div class="reg-badge">
+        <div>
+          <div class="reg-label">UDYAM Registration</div>
+          <div class="reg-num">UDYAM-RJ-11-0083616</div>
+        </div>
+      </div>
+
+      <div class="dtdc-badge">
+        🤝 DTDC Express Parcels — Authorized Partner
+      </div>
+
+      <div style="display:flex; align-items:center; gap:8px; color:var(--text-muted); font-size:14px; margin-top:8px;">
+        📍 Near Tal Medan, SR Complex, Moti Chok, Sardarshahar 331403, Rajasthan
+      </div>
+    </div>
+
+    <div>
+      <p class="section-tag">संपर्क करें</p>
+      <h2 class="section-title" style="margin-bottom:28px;">हमसे बात करें</h2>
+
+      <div class="contact-info-grid">
+        <div class="contact-card-item">
+          <div class="contact-avatar">👨‍💼</div>
+          <div>
+            <div class="contact-name">प्रो. विकास कुमार</div>
+            <div class="contact-phone"><a href="tel:8949813543">8949813543</a></div>
+          </div>
+        </div>
+        <div class="contact-card-item">
+          <div class="contact-avatar">👤</div>
+          <div>
+            <div class="contact-name">तोलाराम पारीक</div>
+            <div class="contact-phone"><a href="tel:9352375424">93523 75424</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px; background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:20px;">
+        <div style="font-weight:700; margin-bottom:12px; font-size:16px;">📞 Quick Actions</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="tel:8949813543" class="btn-primary" style="font-size:14px; padding:10px 20px;">
+            📱 Call Now
+          </a>
+          <a href="https://wa.me/918949813543" target="_blank" class="btn-secondary" style="font-size:14px; padding:10px 20px; display:inline-flex; align-items:center; gap:8px;">
+            💬 WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT FORM -->
+<div id="contact">
+  <div class="form-section">
+    <div class="form-wrap">
+      <div id="formContent">
+        <h2 class="form-title">📩 संदेश भेजें</h2>
+        <p class="form-subtitle">हम 24 घंटे के अंदर आपसे संपर्क करेंगे।</p>
+
+        <form id="contactForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="name">आपका नाम *</label>
+              <input class="form-input" type="text" id="name" placeholder="जैसे: Ramesh Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">मोबाइल नंबर *</label>
+              <input class="form-input" type="tel" id="phone" placeholder="जैसे: 9876543210" required pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">ईमेल (वैकल्पिक)</label>
+              <input class="form-input" type="email" id="email" placeholder="example@email.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="service">सेवा का प्रकार</label>
+              <select class="form-input" id="service">
+                <option value="">-- चुनें --</option>
+                <option>पार्सल बुकिंग</option>
+                <option>डॉक्युमेंट सेवा</option>
+                <option>एक्सप्रेस डिलीवरी</option>
+                <option>ऑल इंडिया डिलीवरी</option>
+                <option>अन्य</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="message">आपका संदेश *</label>
+              <textarea class="form-textarea" id="message" placeholder="अपनी डिलीवरी की जरूरत बताएं — कहाँ से कहाँ, क्या भेजना है..." required></textarea>
+            </div>
+          </div>
+          <div style="margin-top:24px;">
+            <button type="submit" class="form-submit" id="submitBtn">
+              <span id="submitText">📩 संदेश भेजें</span>
+              <span id="submitSpinner" style="display:none;">⏳</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <span class="success-icon">✅</span>
+        <h3 style="font-size:24px; font-weight:800; margin-bottom:8px;">संदेश भेज दिया गया!</h3>
+        <p style="color:var(--text-muted); font-size:16px;">धन्यवाद! हम जल्द ही आपसे संपर्क करेंगे।<br>
+        <strong style="color:var(--saffron);">आपका भरोसा, हमारी डिलीवरी 🦅</strong></p>
+        <button onclick="resetForm()" class="btn-primary" style="margin-top:24px;">
+          ← वापस जाएं
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADDRESS BANNER -->
+<div class="address-banner">
+  <div class="address-text">
+    <span>📍</span>
+    Near Tal Medan, SR Complex, Moti Chok, Sardarshahar 331403, Rajasthan
+    &nbsp;|&nbsp;
+    <span>🕐</span>
+    Mon–Sat: 9:00 AM – 7:00 PM
+    &nbsp;|&nbsp;
+    <span>📞</span>
+    <a href="tel:8949813543" style="color:var(--saffron); text-decoration:none;">8949813543</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">🦅 गरुड़ एक्सप्रेस</span>
+  <p class="footer-text">आपका भरोसा, हमारी डिलीवरी — Garud Express</p>
+  <ul class="footer-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#coverage">Coverage</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-bottom">
+    © 2026 Garud Express · UDYAM-RJ-11-0083616 · Sardarshahar, Rajasthan
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Particles
+  const particlesEl = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${Math.random() * 4 + 2}px;
+      height: ${Math.random() * 4 + 2}px;
+      animation-duration: ${Math.random() * 10 + 8}s;
+      animation-delay: ${Math.random() * 10}s;
+    `;
+    particlesEl.appendChild(p);
+  }
+
+  // Speed lines timing
+  document.querySelectorAll('.speed-line').forEach((l, i) => {
+    l.style.animationDuration = (0.6 + Math.random() * 0.4) + 's';
+    l.style.animationDelay = (i * 0.15) + 's';
+    l.style.animationName = 'speedLine';
+    l.style.animationIterationCount = 'infinite';
+  });
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 300);
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Counter animation
+  function animateCount(el, target, suffix) {
+    let current = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = (target > 100 ? Math.floor(current).toLocaleString('en-IN') : Math.floor(current)) + (suffix || '+');
+    }, 25);
+  }
+
+  // Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.classList.add('visible');
+
+        // Counter
+        if (el.classList.contains('stat-item')) {
+          const numEl = el.querySelector('.stat-num');
+          const target = parseInt(numEl.dataset.target);
+          const suffix = numEl.dataset.suffix || '+';
+          animateCount(numEl, target, suffix);
+        }
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.stat-item, .service-card, .why-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+    observer.observe(el);
+  });
+
+  // Form submit
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const txt = document.getElementById('submitText');
+    const spin = document.getElementById('submitSpinner');
+    btn.disabled = true;
+    txt.style.display = 'none';
+    spin.style.display = 'inline';
+
+    setTimeout(() => {
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }, 1400);
+  });
+
+  function resetForm() {
+    contactForm.reset();
+    document.getElementById('formContent').style.display = 'block';
+    document.getElementById('formSuccess').style.display = 'none';
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitText').style.display = 'inline';
+    document.getElementById('submitSpinner').style.display = 'none';
+  }
+
+  const languageSelect = document.getElementById('languageSelect');
+  const languageLabel = document.getElementById('languageLabel');
+  const translations = {
+    hi: {
+      htmlLang: 'hi',
+      languageLabel: 'भाषा',
+      navServices: 'सेवाएं',
+      navCoverage: 'कवरेज',
+      navAbout: 'हमारे बारे में',
+      navContact: 'संपर्क करें',
+      heroTagline: '<strong>तेज, सुरक्षित और भरोसेमंद डिलीवरी सेवा</strong><br>आपका भरोसा, हमारी डिलीवरी — भारत में कहीं भी, समय पर।',
+      callNow: '📞 अभी कॉल करें',
+      servicesBtn: 'हमारी सेवाएं →'
+    },
+    en: {
+      htmlLang: 'en',
+      languageLabel: 'Language',
+      navServices: 'Services',
+      navCoverage: 'Coverage',
+      navAbout: 'About Us',
+      navContact: 'Contact',
+      heroTagline: '<strong>Fast, secure, and reliable delivery service</strong><br>Your trust, our delivery — anywhere in India, on time.',
+      callNow: '📞 Call Now',
+      servicesBtn: 'Our Services →'
+    }
+  };
+
+  function switchLanguage(lang) {
+    const data = translations[lang] || translations.hi;
+    document.documentElement.lang = data.htmlLang;
+    languageLabel.textContent = data.languageLabel;
+    document.getElementById('navServicesLink').textContent = data.navServices;
+    document.getElementById('navCoverageLink').textContent = data.navCoverage;
+    document.getElementById('navAboutLink').textContent = data.navAbout;
+    document.getElementById('navContactLink').textContent = data.navContact;
+    document.getElementById('heroTagline').innerHTML = data.heroTagline;
+    document.getElementById('callNowBtn').textContent = data.callNow;
+    document.getElementById('servicesBtn').textContent = data.servicesBtn;
+  }
+
+  languageSelect.addEventListener('change', (e) => {
+    switchLanguage(e.target.value);
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
